@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using Showcase.API.Database;
 using Showcase.API.Extensions;
 
@@ -16,7 +17,7 @@ namespace Showcase.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             
             builder.Services.AddRepositories();
-            builder.Services.AddOpenApi("internal");
+            builder.Services.AddOpenApi();
 
 
 
@@ -25,6 +26,7 @@ namespace Showcase.API
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.MapScalarApiReference();
             }
 
             app.UseHttpsRedirection();

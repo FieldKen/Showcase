@@ -12,7 +12,7 @@ using Showcase.API.Database;
 namespace Showcase.API.Migrations
 {
     [DbContext(typeof(ShowcaseDbContext))]
-    [Migration("20250823215239_Initial")]
+    [Migration("20250824213415_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
