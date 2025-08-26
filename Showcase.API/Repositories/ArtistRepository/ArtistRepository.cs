@@ -4,9 +4,9 @@ using Showcase.API.Repositories.BaseRepository;
 
 namespace Showcase.API.Repositories.ArtistRepository
 {
-	public class ArtistRepository : BaseRepository<Artist>, IArtistRepository
+	public class IUserRepository : BaseRepository<Artist>, IArtistRepository
 	{
-		public ArtistRepository(ShowcaseDbContext context) : base(context)
+		public IUserRepository(ShowcaseDbContext context) : base(context)
 		{
 		}
 	}

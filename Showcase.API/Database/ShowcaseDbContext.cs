@@ -15,6 +15,8 @@ namespace Showcase.API.Database
 		public DbSet<Festival> Festivals { get; set; }
 		public DbSet<Location> Locations { get; set; }
 		public DbSet<Performance> Performances { get; set; }
+		public DbSet<User> Users { get; set; }
+		public DbSet<UserConcert> UserConcerts { get; set; }
 		public DbSet<Venue> Venues { get; set; }
 
 		protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -30,6 +32,11 @@ namespace Showcase.API.Database
 
 			modelBuilder.Entity<Concert>(entity =>
 			{
+				entity.HasOne(c => c.Artist)
+					.WithMany(a => a.Concerts)
+					.HasForeignKey(c => c.ArtistId)
+					.OnDelete(DeleteBehavior.Restrict);
+					
 				entity.HasOne(c => c.Venue)
 					.WithMany()
 					.HasForeignKey(c => c.VenueId)
@@ -62,6 +69,21 @@ namespace Showcase.API.Database
 					.WithMany()
 					.HasForeignKey(p => p.ArtistId)
 					.OnDelete(DeleteBehavior.Restrict);
+			});
+
+			modelBuilder.Entity<User>();
+
+			modelBuilder.Entity<UserConcert>(entity =>
+			{
+				entity.HasOne(uc => uc.User)
+					.WithMany(u => u.UserConcerts)
+					.HasForeignKey(uc => uc.UserId)
+					.OnDelete(DeleteBehavior.Cascade);
+					
+				entity.HasOne(uc => uc.Concert)
+					.WithMany(c => c.UserConcerts)
+					.HasForeignKey(uc => uc.ConcertId)
+					.OnDelete(DeleteBehavior.Cascade);
 			});
 
 			modelBuilder.Entity<Venue>(entity =>
